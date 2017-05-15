@@ -10,8 +10,7 @@ Account.prototype.getBalance = function () {
 };
 
 Account.prototype.getAccountStatement = function () {
-  console.log(" Date || Type || Amount || Balance ");
-  console.log("-----------------------------------");
+  console.log(this._printHeader());
   this.transactions.getStatement().forEach(function(item) {
     console.log(item);
   });
@@ -19,16 +18,22 @@ Account.prototype.getAccountStatement = function () {
 
 Account.prototype.deposit = function (amount) {
   this.balance += amount;
-  this.transactions.newTransaction("credit", amount, this.balance);
-  return this.balance;
+  return this.transactions.newTransaction("credit", amount, this.balance);
 };
 
 Account.prototype.withdraw = function (amount) {
-  if(this.balance < amount){
+  if(this._insufficientFunds(amount)){
     throw new TypeError('Insufficient funds');
   } else {
     this.balance -= amount;
-    this.transactions.newTransaction("debit", amount, this.balance);
-    return this.balance;
+    return this.transactions.newTransaction("debit", amount, this.balance);
   }
+};
+
+Account.prototype._insufficientFunds = function (amount) {
+  if(this.balance < amount) {return true;} else {return false;}
+};
+
+Account.prototype._printHeader = function () {
+  return " Date || Type || Amount || Balance ";
 };

@@ -33,11 +33,8 @@ describe('Account', function() {
   });
 
   describe('account statement', function() {
-    xit('returns a statement with all recent transactions', function() {
-      account.deposit(20);
-      account.withdraw(10);
-      var statement = account.getAccountStatement();
-      expect(statement).toEqual('15/05/2017 || credit || 20\n15/05/2017 || debit  || 10');
+    it('prints header', function() {
+      expect(account._printHeader()).toEqual(" Date || Type || Amount || Balance ");
     });
   });
 });
