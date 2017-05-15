@@ -26,5 +26,18 @@ describe('Account', function() {
       account.withdraw(10);
       expect(account.getBalance()).toEqual(10);
     });
+
+    it('raises an error if balance is too low', function() {
+      expect(function(){account.withdraw(10);}).toThrowError('Insufficient funds');
+    });
+  });
+
+  describe('account statement', function() {
+    xit('returns a statement with all recent transactions', function() {
+      account.deposit(20);
+      account.withdraw(10);
+      var statement = account.getAccountStatement();
+      expect(statement).toEqual('15/05/2017 || credit || 20\n15/05/2017 || debit  || 10');
+    });
   });
 });
